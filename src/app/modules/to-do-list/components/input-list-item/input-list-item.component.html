@@ -1,0 +1,28 @@
+@for (item of inputListItems; track item) {
+<label [for]="item.id" class="input-label-text">
+  <input
+    type="checkbox"
+    [id]="item.id"
+    #inputCheckbox
+    [checked]="item.checked"
+    (input)="
+      updateItemCheckbox({ checked: inputCheckbox.checked, id: item.id })
+    "
+  />
+  <input
+    type="text"
+    #inputValue
+    [id]="item.id"
+    [value]="item.value"
+    placeholder="Add new item"
+    autofocus
+    (input)="updateItemText({ value: inputValue.value, id: item.id })"
+  />
+
+  <button
+    class="btn btn-danger-circle"
+    title="Delete item"
+    (click)="deleteItem(item.id)"
+  ></button>
+</label>
+}
