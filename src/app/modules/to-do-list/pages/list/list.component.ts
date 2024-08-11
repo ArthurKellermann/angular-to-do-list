@@ -13,21 +13,29 @@ import { InputValueProps } from '../../interfaces/input-value-props';
 export class ListComponent {
   addItem: boolean = true;
 
+  setListItems = signal<InputValueProps[]>(this.parseItems());
+
   toggleAddItem() {
     this.addItem = !this.addItem;
   }
 
-  private setListItems = signal<InputValueProps[]>([this.#parseItems()]);
-
-  get listItems() {
-    return this.setListItems.asReadonly();
+  getListItems() {
+    return this.setListItems();
   }
 
-  #parseItems() {
+  private parseItems(): InputValueProps[] {
     return JSON.parse(localStorage.getItem('@my-list') || '[]');
   }
 
   getInputAndAddItem(value: InputValueProps) {
-    localStorage.setItem('@my-list', JSON.stringify([value]));
+    const currentItems = this.parseItems();
+    currentItems.push(value);
+    localStorage.setItem('@my-list', JSON.stringify(currentItems));
+    this.setListItems.set(currentItems);
+  }
+
+  deleteAllItems() {
+    localStorage.removeItem('@my-list');
+    return this.setListItems.set(this.parseItems());
   }
 }

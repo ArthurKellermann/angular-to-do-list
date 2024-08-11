@@ -1,7 +1,24 @@
+@if(!getListItems().length){
 <div class="container">
-  <img src="assets/img/task-list-null.png" alt="Your list is empty" loading="eager" *ngIf="!addItem">
+  <img
+    src="assets/img/task-list-null.png"
+    alt="Yout ToDo is empty"
+    loading="eager"
+  />
 
-  <button *ngIf="addItem" class="btn btn-primary" (click)="toggleAddItem()">Create a TODO List</button>
+  @if(addItem){
 
-  <app-input-add-item *ngIf="!addItem" (outputListItems)="getInputAndAddItem($event)"></app-input-add-item>
+  <button *ngIf="addItem" class="btn btn-primary" (click)="toggleAddItem()">Create a ToDo List</button>
+  } @else {
+
+  <app-input-add-item [inputListItems]="getListItems()" (outputListItems)="getInputAndAddItem($event)" />
+  }
 </div>
+} @else {
+<app-input-add-item [inputListItems]="getListItems()" (outputListItems)="getInputAndAddItem($event)" />
+
+<main class="container"></main>
+
+<footer><button class="btn btn-danger" (click)="deleteAllItems()">Delete all items</button>
+</footer>
+}
