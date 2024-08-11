@@ -1,0 +1,7 @@
+<div class="container">
+  <img src="assets/img/task-list-null.png" alt="Your list is empty" loading="eager" *ngIf="!addItem">
+
+  <button *ngIf="addItem" class="btn btn-primary" (click)="toggleAddItem()">Create a TODO List</button>
+
+  <app-input-add-item *ngIf="!addItem" (outputListItems)="getInputAndAddItem($event)"></app-input-add-item>
+</div>

@@ -1,0 +1,17 @@
+<div>
+  <label for="inputValue" class="input-label-text">
+    <input
+      type="text"
+      placeholder="Add a new task"
+      id="inputValue"
+      autofocus
+      (keyup.enter)="focusAndAddItem(inputText.value)"
+      #inputText>
+
+    <button
+      class="btn btn-primary-circle"
+      title="Add new task"
+      (click)="focusAndAddItem(inputText.value)">
+    </button>
+  </label>
+</div>
